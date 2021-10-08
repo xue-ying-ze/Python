@@ -1,0 +1,18 @@
+给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+# 使用滑动窗口，当遇到重复的字符 就从最左边移除字符 直到窗口列表里没有和当前字符重复的
+#同时需要一个变量记录窗口长度，保存最大值。就算是遇到重复的需要移除，之前的长度也保存了
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s)==0:
+            return 0
+        lstr = []
+        cur_l = 0
+        max_l = 0
+        for i in range(len(s)):
+            cur_l += 1
+            while s[i] in lstr:
+                cur_l -= 1
+                del lstr[0]
+            lstr.append(s[i])
+            max_l = max(max_l,cur_l)
+        return max_l
